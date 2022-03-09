@@ -3,6 +3,7 @@ SELECT *
 FROM `students`
 WHERE YEAR(`date_of_birth`) = 1990 
 ORDER BY `date_of_birth` ASC;
+
 -- oppure
 SELECT *
 FROM `students`
@@ -18,9 +19,25 @@ ORDER BY `cfu` ASC;
 
 
 -- #3. Selezionare tutti gli studenti che hanno più di 30 anni
+-- !3371 risultati - PIU' ACCURATO ma non perfetto
+-- 09/03/2022 risultati spaziano da 1971-06-09... - 1992-03-15
+SELECT *
+FROM `students`
+WHERE (TIMESTAMPDIFF(DAY, `date_of_birth`, CURDATE()) / 365) > 30  
+ORDER BY `students`.`date_of_birth`  DESC;
+
+-- oppure - 3338 risultati - meno accurato
+-- 09/03/2022 risultati spaziano da 1971-06-09... - 1991-12-28
 SELECT * 
 FROM `students` 
 WHERE (2022 - YEAR(`date_of_birth`)) > 30  
+ORDER BY `students`.`date_of_birth`  DESC;
+
+-- oppure - 3209 risultati - meno accurato
+-- 09/03/2022 risultati spaziano da 1971-06-09... - 1991-03-06
+SELECT * 
+FROM `students`
+WHERE TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE()) > 30  
 ORDER BY `students`.`date_of_birth`  DESC;
 
 
