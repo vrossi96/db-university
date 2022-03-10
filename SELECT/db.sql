@@ -19,6 +19,12 @@ ORDER BY `cfu` ASC;
 
 
 -- #3. Selezionare tutti gli studenti che hanno più di 30 anni
+-- !3369 risultati - PIU' ACCURATO, PERFETTO, MENO DISPENDIOSO
+-- 09/03/2022 risultati spaziano da 1971-06-09... - 1992-03-08
+SELECT * 
+FROM `students`
+WHERE `date_of_birth` < DATE_SUB(CURDATE(), INTERVAL 30 YEAR)
+ORDER BY `students`.`date_of_birth`  DESC;
 -- !3369 risultati - PIU' ACCURATO e PERFETTO con divisione per 365.25
 -- 09/03/2022 risultati spaziano da 1971-06-09... - 1992-03-08
 SELECT *
